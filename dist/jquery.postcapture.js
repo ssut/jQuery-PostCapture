@@ -68,7 +68,7 @@ function read(s, converter) {
     return $.isFunction(converter) ? converter(value) : value;
 }
 
-var config = $.capture.cookie = function (key, value, options) {
+var config = $.cookie = function (key, value, options) {
 
     // Write
 
@@ -120,7 +120,7 @@ var config = $.capture.cookie = function (key, value, options) {
 
 config.defaults = {};
 
-$.capture.removeCookie = function (key, options) {
+$.removeCookie = function (key, options) {
     if ($.cookie(key) === undefined) {
         return false;
     }
