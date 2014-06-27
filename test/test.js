@@ -19,6 +19,14 @@ QUnit.assert.noErrorFor = function(element, message) {
 
 module('postcapture');
 
-test('Constructor', function() {
-    equal(1, 1, 'asdf');
+var target = $('#target')[0];
+test('get all form data', function() {
+    $('#testForm1').capture();
+    $('#testForm1 input:submit').click();
+
+    var apple = target.$.captures('input1');
+    var banana = target.$.captures('input2');
+
+    equal(apple, 'apple');
+    equal(banana, 'banana');
 });

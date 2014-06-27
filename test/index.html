@@ -9,7 +9,6 @@
     <script src="../lib/jquery.mockjax.js"></script>
     <script src="../dist/jquery.postcapture.js"></script>
     <script src="qunit/qunit.js"></script>
-    <script src="test.js"></script>
 </head>
 <body id="body">
 <h1 id="qunit-header">
@@ -50,9 +49,29 @@
     <p id="first">Try them out:</p>
     <ul id="firstUL"></ul>
     <ol id="empty"></ol>
-    <form id="testForm1">
-        <input type="hidden" name="hiddenInput">
+    <form id="testForm1" method="post" action="action.html" target="target">
+        <input type="hidden" name="input1" value="apple">
+        <input type="text" name="input2" value="banana">
+        <input type="submit" name="submit">
     </form>
+    <form id="testForm2" method="post" action="action.html" enctype="multipart/form-data" target="target">
+        <input type="file" name="input1">
+    </form>
+    <form id="testForm3" method="post" action="action.html" target="target">
+        <input type="radio" name="radio" value="apple">
+        <input type="radio" name="radio" value="banana">
+        <input type="radio" name="radio" value="cat">
+        <input type="radio" name="radio" value="dog" checked>
+    </form>
+    <form id="testForm4" method="post" action="action.html" target="target">
+        <input type="checkbox" name="checkbox[]" value="apple">
+        <input type="checkbox" name="checkbox[]" value="banana" checked>
+        <input type="checkbox" name="checkbox[]" value="cat">
+        <input type="checkbox" name="checkbox[]" value="dog" checked>
+    </form>
+
+    <iframe id="target" name="target" src="about:blank"></iframe>
 </div>
+<script src="test.js"></script>
 </body>
 </html>
