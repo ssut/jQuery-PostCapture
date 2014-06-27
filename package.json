@@ -1,0 +1,38 @@
+{
+  "name": "ssut-post-capture",
+  "version": "0.0.1",
+  "title": "jQuery Post Capture",
+  "description": "Capture POST parameter with jQuery. This project will help you if you are trying to get any POST parameter. (This project is referenced from http://stackoverflow.com/a/1409029/3352865)",
+  "keywords": [
+    "jquery",
+    "post",
+    "capture"
+  ],
+  "homepage": "https://github.com/ssut/jQuery-PostCapture",
+  "author": {
+    "name": "ssut (SuHun Han)",
+    "url": "http://ssut.me"
+  },
+  "maintainers": [
+    {
+    "name": "ssut (SuHun Han)",
+    "url": "http://ssut.me"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ssut/jQuery-PostCapture.git"
+  },
+  "bugs": "https://github.com/ssut/jQuery-PostCapture/issues",
+  "licenses": [
+    {
+      "type": "BSD 3-Clause",
+      "url": "http://www.opensource.org/licenses/BSD-3-Clause"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-bump-build-git": "~1.1.1",
+    "grunt-contrib-jshint": "~0.8.0"
+  }
+}
