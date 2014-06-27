@@ -113,14 +113,12 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: '<%= jshint.grunt.src %>',
                 tasks: [
-                    'jscs:grunt',
                     'jshint:grunt'
                 ]
             },
             src: {
                 files: '<%= jshint.core.src %>',
                 tasks: [
-                    'jscs:core',
                     'jshint:core',
                     'concat',
                     'qunit'
@@ -132,7 +130,6 @@ module.exports = function (grunt) {
                     'test/index.html'
                 ],
                 tasks: [
-                    'jscs:test',
                     'jshint:test'
                 ]
             }
@@ -163,5 +160,4 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [ 'concat', 'jshint', 'qunit' ]);
     grunt.registerTask('release', [ 'default', 'uglify', 'replace', 'compress' ]);
     grunt.registerTask('start', [ 'concat', 'watch' ]);
-
 };
