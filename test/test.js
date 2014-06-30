@@ -22,7 +22,7 @@ module('postcapture');
 var target = $('#target').get(0);
 test('get all form data', function () {
     $('#testForm1').capture();
-    $('#testForm1 input:submit').click();
+    $('#testForm1').submit();
 
     var apple = target.contentWindow.$.captures('input1');
     var banana = target.contentWindow.$.captures('input2');
