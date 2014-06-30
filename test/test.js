@@ -24,8 +24,8 @@ test('get all form data', function() {
     $('#testForm1').capture();
     $('#testForm1 input:submit').click();
 
-    var apple = target.$.captures('input1');
-    var banana = target.$.captures('input2');
+    var apple = target.contentWindow.$.captures('input1');
+    var banana = target.contentWindow.$.captures('input2');
 
     equal(apple, 'apple');
     equal(banana, 'banana');
