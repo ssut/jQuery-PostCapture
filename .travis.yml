@@ -4,4 +4,4 @@ node_js:
 before_install: npm install -g grunt-cli
 notifications:
   email: false
-  irc: "chat.freenode.net#ssut"
+  irc: "irc.freenode.net#ssut"
