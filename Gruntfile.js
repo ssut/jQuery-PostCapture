@@ -90,7 +90,20 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            files: 'test/index.html'
+            all: {
+                options: {
+                    urls: [
+                        'http://127.0.0.1:3000/test/index.html'
+                    ]
+                }
+            }
+        },
+        express: {
+            test: {
+                options: {
+                    script: 'test/server.js'
+                }
+            }
         },
         jshint: {
             options: {
@@ -132,6 +145,13 @@ module.exports = function (grunt) {
                 tasks: [
                     'jshint:test'
                 ]
+            },
+            express: {
+                files: ['test/server.js'],
+                tasks: ['express:test'],
+                options: {
+                    spawn: false
+                }
             }
         },
         replace: {
@@ -155,9 +175,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-text-replace');
 
-    grunt.registerTask('default', [ 'concat', 'jshint', 'qunit' ]);
+    grunt.registerTask('default', [ 'concat', 'jshint', 'express:test', 'qunit' ]);
     grunt.registerTask('release', [ 'default', 'uglify', 'replace', 'compress' ]);
     grunt.registerTask('start', [ 'concat', 'watch' ]);
 };

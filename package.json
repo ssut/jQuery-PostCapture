@@ -15,8 +15,8 @@
   },
   "maintainers": [
     {
-    "name": "ssut (SuHun Han)",
-    "url": "http://ssut.me"
+      "name": "ssut (SuHun Han)",
+      "url": "http://ssut.me"
     }
   ],
   "repository": {
@@ -33,16 +33,17 @@
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-bump-build-git": "~1.1.1",
-    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-compress": "0.7.0",
     "grunt-contrib-concat": "0.3.0",
     "grunt-contrib-copy": "0.5.0",
-    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-qunit": "0.4.0",
     "grunt-contrib-uglify": "0.4.0",
     "grunt-contrib-watch": "0.6.0",
     "grunt-jscs-checker": "^0.4.4",
-    "grunt-text-replace": "0.3.11"
+    "grunt-text-replace": "0.3.11",
+    "grunt-express-server": "^0.4.17",
+    "express": "^4.4.5"
   },
   "scripts": {
     "test": "grunt"
