@@ -1,0 +1,29 @@
+{
+  "name": "jQuery-PostCapture",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ssut/jQuery-PostCapture",
+  "authors": [
+    "ssut <ssut@ssut.me>"
+  ],
+  "description": "Capture POST parameter with jQuery. This project will help you if you are trying to get any POST parameter.",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "jquery",
+    "post",
+    "capture",
+    "parameter",
+    "form",
+    "input"
+  ],
+  "license": "BSD 3-Clause",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "lib"
+  ]
+}
