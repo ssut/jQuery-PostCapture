@@ -31,6 +31,11 @@ $.captures = function (key, blankable) {
         var dataObject = {};
         for (var i = 0; i < key.length; i++) {
             var k = key[i];
+            if (typeof k !== 'string') {
+                console.warn('jQuery PostCapture:',
+                    'the element indexed', i, 'is not String');
+                continue;
+            }
             dataObject[k] = $.captures(k, blankable);
         }
 

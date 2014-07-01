@@ -150,6 +150,11 @@ $.captures = function (key, blankable) {
         var dataObject = {};
         for (var i = 0; i < key.length; i++) {
             var k = key[i];
+            if (typeof k !== 'string') {
+                console.warn('jQuery PostCapture:',
+                    'the element indexed', i, 'is not String');
+                continue;
+            }
             dataObject[k] = $.captures(k, blankable);
         }
 
@@ -160,7 +165,8 @@ $.captures = function (key, blankable) {
 // Create chainable jQuery plugin:
 $.fn.capture = function (options, args) {
     if (!this.is('form')) {
-        console.warn('jQuery PostCapture', 'this library is only available on `form` element');
+        console.warn('jQuery PostCapture:',
+            'this library is only available on `form` element');
         return;
     }
 

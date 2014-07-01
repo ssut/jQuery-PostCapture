@@ -1,7 +1,8 @@
 // Create chainable jQuery plugin:
 $.fn.capture = function (options, args) {
     if (!this.is('form')) {
-        console.warn('jQuery PostCapture', 'this library is only available on `form` element');
+        console.warn('jQuery PostCapture:',
+            'this library is only available on `form` element');
         return;
     }
 
