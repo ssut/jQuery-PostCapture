@@ -96,8 +96,9 @@ module.exports = function (grunt) {
         qunit: {
             all: {
                 options: {
+                    console: true,
                     urls: [
-                        'http://127.0.0.1:3000/test/index.html'
+                        'http://127.0.0.1:3000/test/index'
                     ]
                 }
             }
@@ -137,8 +138,7 @@ module.exports = function (grunt) {
                 files: '<%= jshint.core.src %>',
                 tasks: [
                     'jshint:core',
-                    'concat',
-                    'qunit'
+                    'concat'
                 ]
             },
             test: {
@@ -147,12 +147,14 @@ module.exports = function (grunt) {
                     'test/index.html'
                 ],
                 tasks: [
-                    'jshint:test'
+                    'jshint:test',
+                    'express:test',
+                    'qunit'
                 ]
             },
             express: {
                 files: ['test/server.js'],
-                tasks: ['express:test'],
+                tasks: [],
                 options: {
                     spawn: false
                 }
@@ -171,7 +173,6 @@ module.exports = function (grunt) {
             }
         }
     });
-
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-qunit');

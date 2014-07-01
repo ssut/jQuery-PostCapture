@@ -43,7 +43,8 @@
     "grunt-jscs-checker": "^0.4.4",
     "grunt-text-replace": "0.3.11",
     "grunt-express-server": "^0.4.17",
-    "express": "^4.4.5"
+    "express": "^4.4.5",
+    "ejs": "^1.0.0"
   },
   "scripts": {
     "test": "grunt"
