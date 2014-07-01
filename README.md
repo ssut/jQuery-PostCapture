@@ -12,11 +12,16 @@ Features
     - same-origin (same domain)
     - [browser support localStorage][1]
 
+Warning
+---------
+This plugin is saves form data as human-readable text format(json) and save to cookie storage when (1) localStorage is unavailable (2) target domain(action) is different([Read this][2]).
+This operation is very dangerous if web page is not secured and use this for important form data. **please** use SSL.
+
 Installation
 ---------
 **bower**
 
-Via [bower][2].
+Via [bower][3].
 
 `$ bower install jquery-postcapture`
 
@@ -75,14 +80,16 @@ Version  | Notes
 
 Author
 ---------
-SuHun Han ([@ssut][3])
+SuHun Han ([@ssut][4])
 
 License
 ---------
-This plugin is available under the [BSD 3-Clause license][4].
+This plugin is available under the [BSD 3-Clause license][5].
 
 
   [1]: http://www.quirksmode.org/dom/html5.html
-  [2]: http://bower.io/
-  [3]: https://twitter.com/ssut_
-  [4]: http://opensource.org/licenses/BSD-3-Clause
+  [2]: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+  [3]: http://bower.io/
+  [4]: https://twitter.com/ssut_
+  [5]: http://opensource.org/licenses/BSD-3-Clause
+ 
