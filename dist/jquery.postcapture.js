@@ -14,53 +14,6 @@
 	}
 }(function($) {
 
-// Create chainable jQuery plugin:
-$.fn.capture = function (options, args) {
-    if (!this.is('form')) {
-        return;
-    }
-
-    var action = function () {
-        var data = {};
-        var elements = $(this).find('[name]');
-
-        for (var i = 0; i < elements.length; i++) {
-            var self = elements.eq(i);
-            var name = self.prop('name');
-            var type = self.prop('type').toLowerCase();
-            var value = self.val();
-
-            if (type == 'checkbox') {
-                // multiple checkbox
-                if (name.indexOf('[]') > -1) {
-                    if (!data.hasOwnProperty(name)) {
-                        data[name] = [];
-                    }
-                    data[name].push(value);
-                } else {
-                    data[name] = 'on';
-                }
-            } else if (type == 'radio') {
-                if (value !== '') {
-                    data[name] = value;
-                } else {
-                    data[name] = 'on';
-                }
-            } else if (type == 'file') {
-
-            } else {
-                data[name] = value;
-            }
-        }
-    };
-
-    this.submit(action);
-};
-
-$.captures = function (key) {
-    
-};
-
 /*!
 * jQuery Cookie Plugin v1.4.1
 * https://github.com/carhartl/jquery-cookie
@@ -164,4 +117,100 @@ $.removeCookie = function (key, options) {
     $.cookie(key, '', $.extend({}, options, { expires: -1 }));
     return !$.cookie(key);
 };
+var startsWith = 'formCapture#',
+    currentLocation = location.href;
+
+// First, collect formCapture cookie for security
+var cookies = $.cookie();
+var formData = null;
+for (var key in cookies) {
+    if (key.slice(0, startsWith.length) === startsWith) {
+        formData = JSON.parse(cookies[key]);
+        $.removeCookie(key);
+        break;
+    }
+}
+
+// Create chainable jQuery plugin:
+$.captures = function (key, blankable) {
+    if (formData === null) {
+        return null;
+    }
+
+    if (key === undefined || key === null || arguments.length === 0) {
+        return formData;
+    } else if (typeof key === 'string') {
+        if (formData.hasOwnProperty(key)) {
+            return formData[key];
+        } else {
+            return blankable ? '' : null;
+        }
+    } else if (Object.prototype.toString.call(key) === '[object Array]' ||
+               key instanceof Array) {
+        var dataObject = {};
+        for (var i = 0; i < key.length; i++) {
+            var k = key[i];
+            dataObject[k] = $.captures(k, blankable);
+        }
+
+        return dataObject;
+    }
+};
+
+// Create chainable jQuery plugin:
+$.fn.capture = function (options, args) {
+    if (!this.is('form')) {
+        console.warn('jQuery PostCapture', 'this library is only available on `form` element');
+        return;
+    }
+
+    var action = function () {
+        var action = $(this).attr('action');
+        var data = {};
+        var elements = $(this).find('[name]');
+
+        for (var i = 0; i < elements.length; i++) {
+            var self = elements.eq(i);
+            var name = self.prop('name');
+            var type = self.prop('type').toLowerCase();
+            var value = self.val();
+
+            if (type == 'checkbox') {
+                // multiple checkbox
+                if (name.indexOf('[]') > -1) {
+                    if (!data.hasOwnProperty(name)) {
+                        data[name] = [];
+                    }
+                    data[name].push(value);
+                } else {
+                    data[name] = 'on';
+                }
+            } else if (type == 'radio') {
+                if (value !== '') {
+                    data[name] = value;
+                } else {
+                    data[name] = 'on';
+                }
+            } else if (type == 'file') {
+
+            } else {
+                data[name] = value;
+            }
+        }
+
+        var key = 'formCapture#';
+        for (i = 0; i < action.length; i++) {
+            key += action.charCodeAt(i);
+        }
+
+        var serialized = JSON.stringify(data);
+        if ($.cookie(key) !== undefined) {
+            $.removeCookie(key);
+        }
+        $.cookie(key, serialized);
+    };
+
+    this.submit(action);
+};
+
 }));
