@@ -24,9 +24,13 @@ test('get all form data', function () {
     $('#testForm1').capture();
     $('#testForm1 input:submit').click();
 
-    var apple = target.contentWindow.$.captures('input1');
-    var banana = target.contentWindow.$.captures('input2');
+    stop();
+    setTimeout(function() {
+        var apple = target.contentWindow.$.captures('input1');
+        var banana = target.contentWindow.$.captures('input2');
 
-    equal(apple, 'apple');
-    equal(banana, 'banana');
+        start();
+        equal(apple, 'apple');
+        equal(banana, 'banana');
+    }, 250);
 });
