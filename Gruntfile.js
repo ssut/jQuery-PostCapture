@@ -49,7 +49,10 @@ module.exports = function (grunt) {
                     footer: umdEnd
                 },
                 files: {
-                    'dist/jquery.postcapture.js': ['src/core.js', 'src/*.js']
+                    'dist/jquery.postcapture.js': [
+                        'src/cookie.js',
+                        'src/*.js'
+                    ]
                 }
             }
         },
