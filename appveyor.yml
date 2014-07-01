@@ -16,7 +16,7 @@ install:
 build: off
 
 test_script:
-  - node- --version
+  - node --version
   - npm --version
   - ps: grunt test # PowerShell
   - cmd: grunt test
