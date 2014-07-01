@@ -1,10 +1,12 @@
 // Create chainable jQuery plugin:
 $.fn.capture = function (options, args) {
     if (!this.is('form')) {
+        console.warn('jQuery PostCapture', 'this library is only available on `form` element');
         return;
     }
 
     var action = function () {
+        var action = $(this).attr('action');
         var data = {};
         var elements = $(this).find('[name]');
 
@@ -36,11 +38,18 @@ $.fn.capture = function (options, args) {
                 data[name] = value;
             }
         }
+
+        var key = 'formCapture#';
+        for (i = 0; i < action.length; i++) {
+            key += action.charCodeAt(i);
+        }
+
+        var serialized = JSON.stringify(data);
+        if ($.cookie(key) !== undefined) {
+            $.removeCookie(key);
+        }
+        $.cookie(key, serialized);
     };
 
     this.submit(action);
-};
-
-$.captures = function (key) {
-    
 };
