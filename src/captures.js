@@ -1,9 +1,34 @@
 var startsWith = 'formCapture#',
-    currentLocation = location.href;
+    currentLocation = location.href,
+    localStorage = (function () {
+        var ls = window.localStorage;
+        var test = 'test';
+        try {
+            ls.setItem(test, test);
+            ls.removeItem(test);
+            return ls;
+        } catch(e) {
+            return null;
+        }
+    })();
 
 // First, collect formCapture cookie for security
-var cookies = $.cookie();
 var formData = null;
+
+// getting data from localStorage
+if (localStorage) {
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key.slice(0, startsWith.length) === startsWith) {
+            formData = JSON.parse(localStorage.getItem(key));
+            localStorage.removeItem(key);
+            break;
+        }
+    }
+}
+
+// getting data from cookie
+var cookies = $.cookie();
 for (var key in cookies) {
     if (key.slice(0, startsWith.length) === startsWith) {
         formData = JSON.parse(cookies[key]);

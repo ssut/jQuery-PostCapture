@@ -51,6 +51,7 @@ module.exports = function (grunt) {
                 files: {
                     'dist/jquery.postcapture.js': [
                         'src/cookie.js',
+                        'src/captures.js',
                         'src/*.js'
                     ]
                 }

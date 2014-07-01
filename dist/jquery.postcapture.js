@@ -118,11 +118,36 @@ $.removeCookie = function (key, options) {
     return !$.cookie(key);
 };
 var startsWith = 'formCapture#',
-    currentLocation = location.href;
+    currentLocation = location.href,
+    localStorage = (function () {
+        var ls = window.localStorage;
+        var test = 'test';
+        try {
+            ls.setItem(test, test);
+            ls.removeItem(test);
+            return ls;
+        } catch(e) {
+            return null;
+        }
+    })();
 
 // First, collect formCapture cookie for security
-var cookies = $.cookie();
 var formData = null;
+
+// getting data from localStorage
+if (localStorage) {
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key.slice(0, startsWith.length) === startsWith) {
+            formData = JSON.parse(localStorage.getItem(key));
+            localStorage.removeItem(key);
+            break;
+        }
+    }
+}
+
+// getting data from cookie
+var cookies = $.cookie();
 for (var key in cookies) {
     if (key.slice(0, startsWith.length) === startsWith) {
         formData = JSON.parse(cookies[key]);
@@ -210,13 +235,41 @@ $.fn.capture = function (options, args) {
         }
 
         var serialized = JSON.stringify(data);
-        if ($.cookie(key) !== undefined) {
-            $.removeCookie(key);
+        // currentLocation is declared in captures.js
+        var locationInfo = {
+            current: getLocation(currentLocation),
+            action: getLocation(action)
+        };
+        if (localStorage &&
+            locationInfo.current !== null && locationInfo.action !== null &&
+            locationInfo.current.host === locationInfo.action.host) {
+            // can use localStorage with not break Same-Origin policy
+            if (localStorage.getItem(key) !== undefined) {
+                localStorage.removeItem(key);
+            }
+            localStorage.setItem(key, serialized);
+        } else {
+            if ($.cookie(key) !== undefined) {
+                $.removeCookie(key);
+            }
+            $.cookie(key, serialized);
         }
-        $.cookie(key, serialized);
     };
 
     this.submit(action);
 };
+
+function getLocation(href) {
+    var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)(\/?[^?#]*)(\?[^#]*|)(#.*|)$/);
+    return match && {
+        protocol: match[1],
+        host: match[2],
+        hostname: match[3],
+        port: match[4],
+        pathname: match[5],
+        search: match[6],
+        hash: match[7]
+    };
+}
 
 }));

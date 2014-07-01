@@ -46,10 +46,25 @@ $.fn.capture = function (options, args) {
         }
 
         var serialized = JSON.stringify(data);
-        if ($.cookie(key) !== undefined) {
-            $.removeCookie(key);
+        // currentLocation is declared in captures.js
+        var locationInfo = {
+            current: getLocation(currentLocation),
+            action: getLocation(action)
+        };
+        if (localStorage &&
+            locationInfo.current !== null && locationInfo.action !== null &&
+            locationInfo.current.host === locationInfo.action.host) {
+            // can use localStorage with not break Same-Origin policy
+            if (localStorage.getItem(key) !== undefined) {
+                localStorage.removeItem(key);
+            }
+            localStorage.setItem(key, serialized);
+        } else {
+            if ($.cookie(key) !== undefined) {
+                $.removeCookie(key);
+            }
+            $.cookie(key, serialized);
         }
-        $.cookie(key, serialized);
     };
 
     this.submit(action);
