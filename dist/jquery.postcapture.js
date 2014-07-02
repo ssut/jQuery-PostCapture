@@ -150,7 +150,12 @@ if (localStorage) {
 var cookies = $.cookie();
 for (var key in cookies) {
     if (key.slice(0, startsWith.length) === startsWith) {
-        formData = JSON.parse(cookies[key]);
+        var cookieData = JSON.parse(cookies[key]);
+        if (!localStorage) {
+            formData = cookieData;
+        } else {
+            $.extend(formData, cookieData);
+        }
         $.removeCookie(key);
         break;
     }
@@ -202,6 +207,15 @@ $.fn.capture = function (options, args) {
 
         for (var i = 0; i < elements.length; i++) {
             var self = elements.eq(i);
+            switch (self.get(0).tagName.toUpperCase()) {
+                case 'INPUT':
+                case 'SELECT':
+                case 'TEXTAREA':
+                    break;
+                default:
+                    continue;
+            }
+
             var name = self.prop('name');
             var type = self.prop('type').toLowerCase();
             var value = self.val();
@@ -212,15 +226,19 @@ $.fn.capture = function (options, args) {
                     if (!data.hasOwnProperty(name)) {
                         data[name] = [];
                     }
-                    data[name].push(value);
-                } else {
+                    if (self.is(':checked')) {
+                        data[name].push(value);
+                    }
+                } else if (self.is(':checked')) {
                     data[name] = 'on';
                 }
             } else if (type == 'radio') {
-                if (value !== '') {
-                    data[name] = value;
-                } else {
-                    data[name] = 'on';
+                if (self.is(':checked')) {
+                    if (value !== '') {
+                        data[name] = value;
+                    } else {
+                        data[name] = 'on';
+                    }
                 }
             } else if (type == 'file') {
 
@@ -260,6 +278,12 @@ $.fn.capture = function (options, args) {
 };
 
 function getLocation(href) {
+    // If href starts with relative path
+    if (href.slice(0, 1) === '/' ||
+        (href.slice(0, 5) !== 'http:' && href.slice(0, 6) !== 'https:')) {
+        current = getLocation(location.href);
+        href = current.protocol + '//' + current.host + href;
+    }
     var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)(\/?[^?#]*)(\?[^#]*|)(#.*|)$/);
     return match && {
         protocol: match[1],
