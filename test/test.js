@@ -19,18 +19,61 @@ QUnit.assert.noErrorFor = function (element, message) {
 
 module('postcapture');
 
-var target = $('#target').get(0);
-test('get all form data', function () {
+asyncTest('normal text data', function () {
+
     $('#testForm1').capture();
     $('#testForm1 input:submit').click();
 
-    stop();
-    setTimeout(function() {
-        var apple = target.contentWindow.$.captures('input1');
-        var banana = target.contentWindow.$.captures('input2');
+    var intv = setInterval(function () {
+        if (completed[0]) {
+            clearInterval(intv);
 
-        start();
-        equal(apple, 'apple');
-        equal(banana, 'banana');
-    }, 250);
+            var target = document.getElementById('targetFrame1');
+            var apple = target.contentWindow.$.captures('input1');
+            var banana = target.contentWindow.$.captures('input2');
+
+            start();
+            equal(apple, 'apple');
+            equal(banana, 'banana');
+        }
+    }, 50);
+});
+
+asyncTest('single selectable radio input', function () {
+
+    $('#testForm3').capture();
+    $('#testForm3 input:submit').click();
+
+    var intv = setInterval(function () {
+        if (completed[2]) {
+            clearInterval(intv);
+
+            var target = document.getElementById('targetFrame3');
+            var radio = target.contentWindow.$.captures('radio');
+
+            start();
+            equal(radio, 'dog');
+        }
+    }, 50);
+});
+
+asyncTest('multi selectable checkbox input', function () {
+
+    $('#testForm4').capture();
+    $('#testForm4 input:submit').click();
+
+    var intv = setInterval(function () {
+        if (completed[3]) {
+            clearInterval(intv);
+
+            var target = document.getElementById('targetFrame4');
+            var check = target.contentWindow.$.captures('checkbox[]');
+
+            start();
+            equal(typeof check, 'object');
+            equal(check.length, 2);
+            equal(check[0], 'banana');
+            equal(check[1], 'dog');
+        }
+    }, 50);
 });

@@ -49,29 +49,38 @@
     <p id="first">Try them out:</p>
     <ul id="firstUL"></ul>
     <ol id="empty"></ol>
-    <form id="testForm1" method="post" action="action.html" target="target">
+    <form id="testForm1" method="post" action="/test/action/1?" target="targetFrame1">
         <input type="hidden" name="input1" value="apple">
         <input type="text" name="input2" value="banana">
         <input type="submit" name="submit">
+        <iframe id="targetFrame1" name="targetFrame1" src="/test/action/1"></iframe>
     </form>
-    <form id="testForm2" method="post" action="action.html" enctype="multipart/form-data" target="target">
+    <form id="testForm2" method="post" action="/test/action/2?" enctype="multipart/form-data" target="targetFrame2">
         <input type="file" name="file">
+        <input type="submit">
+        <iframe id="targetFrame2" name="targetFrame2" src="/test/action/2"></iframe>
     </form>
-    <form id="testForm3" method="post" action="action.html" target="target">
+    <form id="testForm3" method="post" action="/test/action/3?" target="targetFrame3">
         <input type="radio" name="radio" value="apple">
         <input type="radio" name="radio" value="banana">
         <input type="radio" name="radio" value="cat">
         <input type="radio" name="radio" value="dog" checked>
+        <input type="submit">
+        <iframe id="targetFrame3" name="targetFrame3" src="/test/action/3"></iframe>
     </form>
-    <form id="testForm4" method="post" action="action.html" target="target">
+    <form id="testForm4" method="post" action="/test/action/4?" target="targetFrame4">
         <input type="checkbox" name="checkbox[]" value="apple">
         <input type="checkbox" name="checkbox[]" value="banana" checked>
         <input type="checkbox" name="checkbox[]" value="cat">
         <input type="checkbox" name="checkbox[]" value="dog" checked>
+        <input type="submit">
+        <iframe id="targetFrame4" name="targetFrame4" src="/test/action/4"></iframe>
     </form>
 
 </div>
-<iframe id="target" name="target" src="about:blank" style="display: none"></iframe>
 <script src="test.js"></script>
+<script>
+var completed = [false, false, false, false];
+</script>
 </body>
 </html>

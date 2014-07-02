@@ -3,9 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="../lib/jquery.js"></script>
-    <script src="../dist/jquery.postcapture.js"></script>
+    <script src="/lib/jquery.js"></script>
+    <% if (post) { %>
+    <script src="/dist/jquery.postcapture.js"></script>
+    <% } %>
 </head>
 <body>
+<script>
+if (location.href.indexOf('?') > -1) {
+    parent.completed[<%= num - 1 %>] = true;
+}
+</script>
 </body>
 </html>
