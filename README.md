@@ -43,7 +43,7 @@ Bottom line: GitHub is not a CDN.
 
 Dependencies
 ---------
-Requires jQuery 1.6.x or higher.
+Requires jQuery 1.6.x or higher. (support all jQuery versions)
 
 Usage
 ---------
@@ -51,6 +51,9 @@ Usage
 
 Read specific input value:
 `$.captures('name'); // -> value`
+
+Read specific(filter) input values:
+`$.captures(['name1', 'name2', 'name3']); // -> { 'name1': 'value', ... }`
 
 Read all available input values:
 `$.captures(); // -> { 'name': 'value', ... }`
@@ -76,7 +79,7 @@ Changes
 ---------
 Version  | Notes
 --------- | -----
-0.0.1 | Pre-release version (unstable)
+0.0.1 | Pre-release version (unstable, not completed)
 
 Author
 ---------
@@ -92,4 +95,3 @@ This plugin is available under the [BSD 3-Clause license][5].
   [3]: http://bower.io/
   [4]: https://twitter.com/ssut_
   [5]: http://opensource.org/licenses/BSD-3-Clause
- 
