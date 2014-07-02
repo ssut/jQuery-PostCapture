@@ -76,6 +76,22 @@
         <input type="submit">
         <iframe id="targetFrame4" name="targetFrame4" src="/test/action/4"></iframe>
     </form>
+    <form id="testForm5" method="post" action="/test/action/5?" target="targetFrame5">
+        <select name="single_select">
+            <option value="apple" selected>apple</option>
+            <option value="banana">banana</option>
+            <option value="cat">cat</option>
+            <option value="dog">dog</option>
+        </select>
+        <select name="multiple_select" multiple>
+            <option value="apple" selected>apple</option>
+            <option value="banana">banana</option>
+            <option value="cat" selected>cat</option>
+            <option value="dog" selected>dog</option>
+        </select>
+        <input type="submit">
+        <iframe id="targetFrame5" name="targetFrame5" src="/test/action/5"></iframe>
+    </form>
 
 </div>
 <script src="test.js"></script>

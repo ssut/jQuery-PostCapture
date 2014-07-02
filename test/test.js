@@ -20,7 +20,6 @@ QUnit.assert.noErrorFor = function (element, message) {
 module('postcapture');
 
 asyncTest('normal text data', function () {
-
     $('#testForm1').capture();
     $('#testForm1 input:submit').click();
 
@@ -40,7 +39,6 @@ asyncTest('normal text data', function () {
 });
 
 asyncTest('single selectable radio input', function () {
-
     $('#testForm3').capture();
     $('#testForm3 input:submit').click();
 
@@ -58,7 +56,6 @@ asyncTest('single selectable radio input', function () {
 });
 
 asyncTest('multi selectable checkbox input', function () {
-
     $('#testForm4').capture();
     $('#testForm4 input:submit').click();
 
@@ -74,6 +71,30 @@ asyncTest('multi selectable checkbox input', function () {
             equal(check.length, 2);
             equal(check[0], 'banana');
             equal(check[1], 'dog');
+        }
+    }, 50);
+});
+
+asyncTest('<select> tag test (single, multiple)', function () {
+    $('#testForm5').capture();
+    $('#testForm5 input:submit').click();
+
+    var intv = setInterval(function () {
+        if (completed[4]) {
+            clearInterval(intv);
+
+            var target = document.getElementById('targetFrame5');
+            var single = target.contentWindow.$.captures('single_select');
+            var multiple = target.contentWindow.$.captures('multiple_select');
+            console.log(single, multiple);
+
+            start();
+            equal(single, 'apple');
+            equal(typeof multiple, 'object');
+            equal(multiple.length, 3);
+            equal(multiple[0], 'apple');
+            equal(multiple[1], 'cat');
+            equal(multiple[2], 'dog');
         }
     }, 50);
 });
