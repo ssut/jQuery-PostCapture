@@ -217,7 +217,7 @@ $.fn.capture = function (options, args) {
             }
 
             var name = self.prop('name');
-            var type = self.prop('type').toLowerCase();
+            var type = self.prop('type') ? self.prop('type').toLowerCase() : '';
             var value = self.val();
 
             if (type == 'checkbox') {
