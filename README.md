@@ -33,8 +33,8 @@ Or add `jquery-postcapture` to your apps `bower.json`.
 ```
 
 **standalone**
-
-Include script ***after*** the jQuery library (unless you are packaging scripts someow else):
+First, download a distribution from [Releases][4].
+Include script ***after*** the jQuery library (unless you are packaging scripts somehow else):
 `<script src="/path/to/jquery.postcapture.js"></script>`
 
 **Do not hotlink the raw script url. (https://raw.github.com/...).**
@@ -83,15 +83,16 @@ Version  | Notes
 
 Author
 ---------
-SuHun Han ([@ssut][4])
+SuHun Han ([@ssut][5])
 
 License
 ---------
-This plugin is available under the [BSD 3-Clause license][5].
+This plugin is available under the [BSD 3-Clause license][6].
 
 
   [1]: http://www.quirksmode.org/dom/html5.html
   [2]: https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
   [3]: http://bower.io/
-  [4]: https://twitter.com/ssut_
-  [5]: http://opensource.org/licenses/BSD-3-Clause
+  [4]: https://github.com/ssut/jQuery-PostCapture/releases
+  [5]: https://twitter.com/ssut_
+  [6]: http://opensource.org/licenses/BSD-3-Clause
