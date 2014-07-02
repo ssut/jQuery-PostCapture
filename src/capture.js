@@ -13,6 +13,15 @@ $.fn.capture = function (options, args) {
 
         for (var i = 0; i < elements.length; i++) {
             var self = elements.eq(i);
+            switch (self.get(0).tagName.toUpperCase()) {
+                case 'INPUT':
+                case 'SELECT':
+                case 'TEXTAREA':
+                    break;
+                default:
+                    continue;
+            }
+
             var name = self.prop('name');
             var type = self.prop('type').toLowerCase();
             var value = self.val();
