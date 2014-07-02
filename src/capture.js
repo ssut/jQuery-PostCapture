@@ -2,7 +2,7 @@
 $.fn.capture = function (options, args) {
     if (!this.is('form')) {
         console.warn('jQuery PostCapture:',
-            'this library is only available on `form` element');
+            'this plugin is only available on `form` element');
         return;
     }
 
@@ -68,6 +68,9 @@ $.fn.capture = function (options, args) {
                             data[name].push(fileData);
                         }
                     } else {
+                        // IE <= 9 and old version of Opera
+                        console.warn('jQuery PostCapture:',
+                            'your web browser is does not support HTML5 File API');
                         var fileName = value.replace(/^.*[\\\/]/, ''),
                             fileExt = fileName.split('.').pop();
                         var mimeType = MimeType.get(fileExt);
@@ -104,6 +107,10 @@ $.fn.capture = function (options, args) {
             }
             localStorage.setItem(key, serialized);
         } else {
+            console.warn('jQuery PostCapture:',
+                'this env is not support HTML5 localStorage.',
+                'this operation is vulnerable and very dangerous if you use not-secured',
+                'protocol such as HTTP');
             if ($.cookie(key) !== undefined) {
                 $.removeCookie(key);
             }
