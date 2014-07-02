@@ -86,7 +86,6 @@ asyncTest('<select> tag test (single, multiple)', function () {
             var target = document.getElementById('targetFrame5');
             var single = target.contentWindow.$.captures('single_select');
             var multiple = target.contentWindow.$.captures('multiple_select');
-            console.log(single, multiple);
 
             start();
             equal(single, 'apple');
