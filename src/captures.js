@@ -31,7 +31,12 @@ if (localStorage) {
 var cookies = $.cookie();
 for (var key in cookies) {
     if (key.slice(0, startsWith.length) === startsWith) {
-        formData = JSON.parse(cookies[key]);
+        var cookieData = JSON.parse(cookies[key]);
+        if (!localStorage) {
+            formData = cookieData;
+        } else {
+            $.extend(formData, cookieData);
+        }
         $.removeCookie(key);
         break;
     }

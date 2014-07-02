@@ -32,15 +32,19 @@ $.fn.capture = function (options, args) {
                     if (!data.hasOwnProperty(name)) {
                         data[name] = [];
                     }
-                    data[name].push(value);
-                } else {
+                    if (self.is(':checked')) {
+                        data[name].push(value);
+                    }
+                } else if (self.is(':checked')) {
                     data[name] = 'on';
                 }
             } else if (type == 'radio') {
-                if (value !== '') {
-                    data[name] = value;
-                } else {
-                    data[name] = 'on';
+                if (self.is(':checked')) {
+                    if (value !== '') {
+                        data[name] = value;
+                    } else {
+                        data[name] = 'on';
+                    }
                 }
             } else if (type == 'file') {
 
