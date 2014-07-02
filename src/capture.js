@@ -12,8 +12,9 @@ $.fn.capture = function (options, args) {
         var elements = $(this).find('[name]');
 
         for (var i = 0; i < elements.length; i++) {
-            var self = elements.eq(i);
-            switch (self.get(0).tagName.toUpperCase()) {
+            var self = elements.eq(i), // self is jQuery iterable object (Array) 
+                me = self.get(0); // me is native DOM object (object)
+            switch (me.tagName.toUpperCase()) {
                 case 'INPUT':
                 case 'SELECT':
                 case 'TEXTAREA':
@@ -26,6 +27,7 @@ $.fn.capture = function (options, args) {
             var type = self.prop('type') ? self.prop('type').toLowerCase() : '';
             var value = self.val();
 
+            // type is always String
             if (type == 'checkbox') {
                 // multiple checkbox
                 if (name.indexOf('[]') > -1) {
@@ -47,7 +49,36 @@ $.fn.capture = function (options, args) {
                     }
                 }
             } else if (type == 'file') {
-
+                if (!data.hasOwnProperty(name)) {
+                    data[name] = [];
+                }
+                if (value !== '') {
+                    // IE >= 10, Safari, Chrome, Firefox ...
+                    if (me.files !== undefined) {
+                        for (var j = 0; j < me.files.length; j++) {
+                            var file = me.files.item(j);
+                            var fileData = {
+                                name: ('name' in file) ? file.name :
+                                      (file.fileName ? file.fileName : ''),
+                                size: ('size' in file) ? file.size :
+                                      (file.fileSize ? file.fileSize : -1),
+                                mediaType: ('mediaType' in file) ? file.mediaType :
+                                            'application/octet-stream'
+                            };
+                            data[name].push(fileData);
+                        }
+                    } else {
+                        var fileName = value.replace(/^.*[\\\/]/, ''),
+                            fileExt = fileName.split('.').pop();
+                        var mimeType = MimeType.get(fileExt);
+                        var fileData0 = {
+                            name: fileName,
+                            size: -1,
+                            mediaType: mimeType
+                        };
+                        data[name].push(fileData0);
+                    }
+                }
             } else {
                 data[name] = value;
             }
