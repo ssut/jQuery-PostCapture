@@ -9,13 +9,15 @@ Features
 ---------
 - Get any post parameter formatted javascript object
 - use html5 localStorage when available (else cookie)
-    - same-origin (same domain)
+    - same-origin (same domain and port)
     - [browser support localStorage][1]
 
 Warning
 ---------
-This plugin is saves form data as human-readable text format(json) and save to cookie storage when (1) localStorage is unavailable (2) target domain(action) is different([Read this][2]).
+This plugin is saves form data as human-readable text format(json) and save to cookie storage when (1) localStorage is unavailable (2) target domain and port(action) is different([Read this][2]).
 This operation is very dangerous if web page is not secured and use this for important form data. **please** use SSL.
+
+This plugin is not working when target domain is different because this plugin uses localStorage & cookie.
 
 Installation
 ---------
