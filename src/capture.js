@@ -12,7 +12,7 @@ $.fn.capture = function (options, args) {
         var elements = $(this).find('[name]');
 
         for (var i = 0; i < elements.length; i++) {
-            var self = elements.eq(i), // self is jQuery iterable object (Array) 
+            var self = elements.eq(i), // self is jQuery iterable object (Array)
                 me = self.get(0); // me is native DOM object (object)
             switch (me.tagName.toUpperCase()) {
                 case 'INPUT':

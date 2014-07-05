@@ -84,7 +84,7 @@ Changes
 ---------
 Version  | Notes
 --------- | -----
-0.0.1 | Pre-release version (unstable, not completed)
+0.0.1 | First release
 
 Author
 ---------
