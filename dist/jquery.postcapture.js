@@ -1091,7 +1091,14 @@ $.fn.capture = function (options, args) {
                     }
                 }
             } else {
-                data[name] = value;
+                if (name.indexOf('[]') > -1) {
+                    if (!data.hasOwnProperty(name)) {
+                        data[name] = [];
+                    }
+                    data[name].push(value);
+                } else {
+                    data[name] = value;
+                }
             }
         }
 
